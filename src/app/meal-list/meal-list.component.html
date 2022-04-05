@@ -1,0 +1,37 @@
+<header class="nav-header">
+  <button class="button" routerLink="/menu">Go back to Menu</button>
+  <h3>{{ category }}</h3>
+</header>
+<div class="container">
+  <div class="wrapper">
+    <table>
+      <tr>
+        <th>No.</th>
+        <th>Meal ID:</th>
+        <th>Meal name:</th>
+        <th>Meal thumbnail</th>
+      </tr>
+      <tr
+        *ngFor="let meal of meals; let i = index"
+        (click)="seeDetails(meal.idMeal)"
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ meal.idMeal }}</td>
+        <td>
+          <h3>{{ meal.strMeal }}</h3>
+        </td>
+        <td>
+          <img
+            class="img-thumbnail"
+            src="{{ meal.strMealThumb }}"
+            alt="meal-thumbnail"
+          />
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="wrapper">
+    <app-detail-about [details]="details"> </app-detail-about>
+  </div>
+</div>
