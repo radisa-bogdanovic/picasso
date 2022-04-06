@@ -6,18 +6,20 @@
   <div class="wrapper wrapper-left">
     <table>
       <tr>
-        <th>Meal ID:</th>
+        <th>No.</th>
         <th>Meal name:</th>
+        <th>Meal ID:</th>
         <th>Meal thumbnail</th>
       </tr>
       <tr
         *ngFor="let meal of allCategories | paginate: paginationObj"
         (click)="getMeal(this.meal)"
       >
-        <td>{{ meal.idCategory }}</td>
+        <td>{{ allCategories.indexOf(meal) + 1 }}</td>
         <td>
           <h3>{{ meal.strCategory }}</h3>
         </td>
+        <td>{{ meal.idCategory }}</td>
         <td>
           <img
             class="img-thumbnail"

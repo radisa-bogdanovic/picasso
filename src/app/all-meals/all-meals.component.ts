@@ -28,7 +28,17 @@ export class AllMealsComponent implements OnInit {
 
   ngOnInit(): void {
     this.services.getAllCategories().subscribe((data: AllMealsModel[]) => {
-      this.allCategories = data;
+      this.allCategories = data.sort((a, b) => {
+        let fa = a.strCategory,
+          fb = b.strCategory;
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      });
     });
   }
   getMeal(meal: AllMealsModel) {
