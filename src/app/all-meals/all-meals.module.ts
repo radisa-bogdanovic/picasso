@@ -3,9 +3,10 @@ import { AllMealsComponent } from './all-meals.component';
 import { AllMealsRouter } from './all-meals.routing';
 import { CommonModule } from '@angular/common';
 import { DetailAllMealsComponent } from './detail-all-meals/detail-all-meals.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
-  imports: [AllMealsRouter, CommonModule],
+  imports: [AllMealsRouter, CommonModule, NgxPaginationModule],
   declarations: [AllMealsComponent, DetailAllMealsComponent],
 })
 export class AllMealsModule {}

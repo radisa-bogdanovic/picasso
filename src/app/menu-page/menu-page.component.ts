@@ -27,6 +27,7 @@ export class MenuPageComponent implements OnInit {
 
   getMealsByCategoryClick() {
     this.statement = false;
+    this.national = [];
     this.service.getMealByCategory().subscribe((meal: CategoryMeal[]) => {
       this.categories = meal;
     });

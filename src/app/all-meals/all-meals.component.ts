@@ -8,14 +8,23 @@ import { AllMealsModel } from '../Models/all-meals.model';
 })
 export class AllMealsComponent implements OnInit {
   allCategories: AllMealsModel[] = [];
+  paginationObj: any;
 
   clickedMeal: AllMealsModel = {
     idCategory: '',
-    strCategory: '',
-    strCategoryThumb: '',
+    strCategory: 'Click on meal to see details about meal: ',
+    strCategoryThumb:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-I5Nrw83r8YuERLnPeMTg4whNRJ2cbX_szw&usqp=CAU',
     strCategoryDescription: '',
   };
-  constructor(private services: AllMealsService) {}
+  constructor(private services: AllMealsService) {
+    this.paginationObj = {
+      id: 'basicPaginate',
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.allCategories.length,
+    };
+  }
 
   ngOnInit(): void {
     this.services.getAllCategories().subscribe((data: AllMealsModel[]) => {
@@ -24,5 +33,8 @@ export class AllMealsComponent implements OnInit {
   }
   getMeal(meal: AllMealsModel) {
     return (this.clickedMeal = meal);
+  }
+  pageChanged(event: any) {
+    this.paginationObj.currentPage = event;
   }
 }

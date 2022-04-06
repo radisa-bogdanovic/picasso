@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MealListService } from './meal-list.service';
 import { MealList } from '../Models/meals-list.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DetailAboutModel } from '../Models/detail-about.model';
 
 @Component({
@@ -11,12 +11,19 @@ import { DetailAboutModel } from '../Models/detail-about.model';
 })
 export class MealListComponent implements OnInit {
   meals: MealList[] = [];
+  paginationObj: any;
   details: DetailAboutModel[] = [];
   constructor(
     private service: MealListService,
-    private aroute: ActivatedRoute,
-    private route: Router
-  ) {}
+    private aroute: ActivatedRoute
+  ) {
+    this.paginationObj = {
+      id: 'basicPaginate',
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.meals.length,
+    };
+  }
   category: string = this.aroute.snapshot.params['category'];
 
   ngOnInit(): void {
@@ -29,5 +36,8 @@ export class MealListComponent implements OnInit {
     this.service.getDetails(id).subscribe((data: DetailAboutModel[]) => {
       this.details = data;
     });
+  }
+  pageChanged(event: any) {
+    this.paginationObj.currentPage = event;
   }
 }

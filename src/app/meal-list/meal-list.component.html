@@ -12,10 +12,10 @@
         <th>Meal thumbnail</th>
       </tr>
       <tr
-        *ngFor="let meal of meals; let i = index"
+        *ngFor="let meal of meals | paginate: paginationObj"
         (click)="seeDetails(meal.idMeal)"
       >
-        <td>{{ i + 1 }}</td>
+        <td>{{ meals.indexOf(meal) + 1 }}</td>
         <td>{{ meal.idMeal }}</td>
         <td>
           <h3>{{ meal.strMeal }}</h3>
@@ -29,6 +29,10 @@
         </td>
       </tr>
     </table>
+    <pagination-controls
+      id="basicPaginate"
+      (pageChange)="pageChanged($event)"
+    ></pagination-controls>
   </div>
 
   <div class="wrapper">
