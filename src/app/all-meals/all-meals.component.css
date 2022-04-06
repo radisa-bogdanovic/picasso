@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.img-thumbnail {
+  width: 150px;
+}
+table {
+  width: 100%;
+}
+table td {
+  border: 1px red solid;
+}
+.nav-header {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  width: 100%;
+  background-color: rgb(255, 111, 0);
+}
+
+.button {
+  height: 2rem;
+  width: 5rem;
+}
+.container {
+  display: flex;
+  width: 100%;
+}
+.wrapper {
+  background-color: wheat;
+  width: 50%;
+  border: 1px darkcyan solid;
+  text-align: center;
+}

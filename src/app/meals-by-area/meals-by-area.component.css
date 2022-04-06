@@ -1,0 +1,9 @@
+.img-thumbnail {
+  width: 150px;
+}
+table {
+  width: 49%;
+}
+table td {
+  border: 1px red solid;
+}
