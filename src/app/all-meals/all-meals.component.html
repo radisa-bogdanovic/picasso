@@ -1,5 +1,5 @@
 <header class="nav-header">
-  <button class="button" routerLink="/menu">Go back to Menu</button>
+  <button class="button" (click)="goBackToMenu()">Go back to Menu</button>
   <h3>All Categories</h3>
 </header>
 <div class="container">
@@ -13,7 +13,7 @@
       </tr>
       <tr
         *ngFor="let meal of allCategories | paginate: paginationObj"
-        (click)="getMeal(this.meal)"
+        (click)="seeDetails(allCategories.indexOf(meal))"
       >
         <td>{{ allCategories.indexOf(meal) + 1 }}</td>
         <td>
@@ -35,6 +35,6 @@
     ></pagination-controls>
   </div>
   <div class="wrapper">
-    <app-detail-all-meals [clickedMeal]="clickedMeal"></app-detail-all-meals>
+    <router-outlet></router-outlet>
   </div>
 </div>

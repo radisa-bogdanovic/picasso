@@ -1,22 +1,39 @@
-<button routerLink="../">Go back to Menu</button>
+<header class="nav-header">
+  <button class="button" routerLink="/menu">Go back to Menu</button>
+  <h3>{{ area }}</h3>
+</header>
 
-<table>
-  <tr>
-    <th>Meal ID:</th>
-    <th>Meal name:</th>
-    <th>Meal thumbnail</th>
-  </tr>
-  <tr *ngFor="let meal of mealsArea">
-    <td>{{ meal.idMeal }}</td>
-    <td>
-      <h3>{{ meal.strMeal }}</h3>
-    </td>
-    <td>
-      <img
-        class="img-thumbnail"
-        src="{{ meal.strMealThumb }}"
-        alt="meal-thumbnail"
-      />
-    </td>
-  </tr>
-</table>
+<div class="container">
+  <div class="wrapper">
+    <table>
+      <tr>
+        <th>Meal ID:</th>
+        <th>Meal name:</th>
+        <th>Meal thumbnail</th>
+      </tr>
+      <tr
+        *ngFor="let meal of mealsArea | paginate: paginationObj2"
+        (click)="seeDetails(meal.idMeal)"
+      >
+        <td>{{ meal.idMeal }}</td>
+        <td>
+          <h3>{{ meal.strMeal }}</h3>
+        </td>
+        <td>
+          <img
+            class="img-thumbnail"
+            src="{{ meal.strMealThumb }}"
+            alt="meal-thumbnail"
+          />
+        </td>
+      </tr>
+    </table>
+    <pagination-controls
+      id="basicPaginate2"
+      (pageChange)="pageChanged($event)"
+    ></pagination-controls>
+  </div>
+  <div class="wrapper wrapper-outlet">
+    <router-outlet></router-outlet>
+  </div>
+</div>

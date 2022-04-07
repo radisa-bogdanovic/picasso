@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AllMealsService } from './all-meals.service';
 import { AllMealsModel } from '../Models/all-meals.model';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-all-meals',
   templateUrl: './all-meals.component.html',
@@ -9,15 +10,11 @@ import { AllMealsModel } from '../Models/all-meals.model';
 export class AllMealsComponent implements OnInit {
   allCategories: AllMealsModel[] = [];
   paginationObj: any;
-
-  clickedMeal: AllMealsModel = {
-    idCategory: '',
-    strCategory: 'Click on meal to see details about meal: ',
-    strCategoryThumb:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-I5Nrw83r8YuERLnPeMTg4whNRJ2cbX_szw&usqp=CAU',
-    strCategoryDescription: '',
-  };
-  constructor(private services: AllMealsService) {
+  constructor(
+    private services: AllMealsService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.paginationObj = {
       id: 'basicPaginate',
       itemsPerPage: 5,
@@ -41,10 +38,17 @@ export class AllMealsComponent implements OnInit {
       });
     });
   }
-  getMeal(meal: AllMealsModel) {
-    return (this.clickedMeal = meal);
-  }
+
   pageChanged(event: any) {
     this.paginationObj.currentPage = event;
+  }
+
+  goBackToMenu() {
+    this.router.navigate(['menu']);
+  }
+  seeDetails(id: number) {
+    this.router.navigate([id], {
+      relativeTo: this.route,
+    });
   }
 }

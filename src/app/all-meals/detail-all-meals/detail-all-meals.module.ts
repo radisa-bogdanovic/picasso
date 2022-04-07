@@ -6,4 +6,4 @@ import { CommonModule } from '@angular/common';
   imports: [DetailAllAboutRouting, CommonModule],
   declarations: [],
 })
-export class DetailAboutModule {}
+export class DetailAboutAllMealsModule {}

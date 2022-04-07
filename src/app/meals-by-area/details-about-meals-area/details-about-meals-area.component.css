@@ -41,7 +41,7 @@ table td {
 }
 .wrapper {
   background-color: wheat;
-  width: 50%;
+  width: 100%;
   border: 1px darkcyan solid;
   text-align: center;
 }

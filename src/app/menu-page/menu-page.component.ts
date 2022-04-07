@@ -33,10 +33,10 @@ export class MenuPageComponent implements OnInit {
     });
   }
   chooseCategory(category: string) {
-    this.router.navigate(['/menu/' + category]);
+    this.router.navigate(['/menu/category/' + category]);
   }
 
   chooseArea(area: string) {
-    this.router.navigate(['/menu/' + area]);
+    this.router.navigate(['/menu/area/' + area]);
   }
 }

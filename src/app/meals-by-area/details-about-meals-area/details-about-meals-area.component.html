@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="wrapper" *ngFor="let detail of details">
+    <h2>Name :{{ detail.strMeal }}</h2>
+    <img
+      class="img-thumbnail"
+      src="{{ detail.strMealThumb }}"
+      alt="image-meal-thumbnail"
+    />
+    <div class="details">
+      <h3>Area:</h3>
+      <h4>{{ detail.strArea }}</h4>
+      <h3>Tags:</h3>
+      <h5>{{ detail.strTags }}</h5>
+      <h3>Id:</h3>
+      <p>{{ detail.idMeal }}</p>
+      <h3>Category:</h3>
+      <p>{{ detail.strCategory }}</p>
+      <h3>List of ingredients:</h3>
+      <p>
+        {{ detail.strIngredient1 }}, {{ detail.strIngredient2 }},{{
+          detail.strIngredient3
+        }}, {{ detail.strIngredient4 }}, {{ detail.strIngredient5
+        }}{{ detail.strIngredient6 }}, {{ detail.strIngredient7 }}
+      </p>
+      <h3>Instructions:</h3>
+      <p>{{ detail.strInstructions }}</p>
+    </div>
+  </div>
+</div>

@@ -21,12 +21,12 @@ const userRoutes: Routes = [
       import('./menu-page/menu-page.module').then((m) => m.MenuPageModule),
   },
   {
-    path: 'menu/:category',
+    path: 'menu/category/:category',
     loadChildren: () =>
       import('./meal-list/meal-list.module').then((m) => m.MealListModule),
   },
   {
-    path: 'menu/:area',
+    path: 'menu/area/:area',
     loadChildren: () =>
       import('./meals-by-area/meals-by-area.module').then((m) => m.MealsByArea),
   },
