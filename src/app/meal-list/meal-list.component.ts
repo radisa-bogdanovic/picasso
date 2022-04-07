@@ -13,6 +13,7 @@ export class MealListComponent implements OnInit {
   meals: MealList[] = [];
   paginationObj: any;
   details: DetailAboutModel[] = [];
+  statement: boolean = false;
   constructor(
     private service: MealListService,
     private routes: ActivatedRoute,
@@ -39,5 +40,29 @@ export class MealListComponent implements OnInit {
   }
   pageChanged(event: any) {
     this.paginationObj.currentPage = event;
+  }
+  getValue(input: any) {
+    if (this.meals.length == 0) {
+      this.statement = true;
+    }
+    if (input.value != '') {
+      this.searchIt(input);
+    }
+  }
+  getMeals() {
+    this.service.getMeals(this.category).subscribe((data: MealList[]) => {
+      this.meals = data;
+    });
+  }
+  searchIt(input: any) {
+    this.service.getMeals(this.category).subscribe((data: MealList[]) => {
+      this.meals = data.filter((el) => {
+        return el.strMeal == input.value;
+      });
+    });
+  }
+  getBackToMeals() {
+    this.statement = false;
+    this.getMeals();
   }
 }

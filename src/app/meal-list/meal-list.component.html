@@ -1,10 +1,19 @@
 <header class="nav-header">
   <button class="button" routerLink="/menu">Go back to Menu</button>
+  <input #inputVal type="text" />
+  <button class="search-button" (click)="getValue(inputVal)">Search</button>
   <h3>{{ category }}</h3>
 </header>
 <div class="container">
   <div class="wrapper">
     <table>
+      <div class="statementDiv" *ngIf="statement">
+        <h3>
+          Sorry, no search result for {{ inputVal.value }}, please go back to
+          meals
+        </h3>
+        <button (click)="getBackToMeals()">Go Back</button>
+      </div>
       <tr>
         <th>No.</th>
         <th>Meal ID:</th>

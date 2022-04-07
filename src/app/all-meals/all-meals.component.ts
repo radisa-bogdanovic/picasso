@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AllMealsComponent implements OnInit {
   allCategories: AllMealsModel[] = [];
   paginationObj: any;
+  statement: boolean = false;
   constructor(
     private services: AllMealsService,
     private route: ActivatedRoute,
@@ -24,6 +25,40 @@ export class AllMealsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filterArray();
+  }
+  goBackToMenu() {
+    this.router.navigate(['menu']);
+  }
+  seeDetails(id: number) {
+    this.router.navigate([id], {
+      relativeTo: this.route,
+    });
+  }
+  pageChanged(event: any) {
+    this.paginationObj.currentPage = event;
+  }
+  getValue(input: any) {
+    if (this.allCategories.length == 0) {
+      this.statement = true;
+    }
+    if (input.value != '') {
+      this.searchIt(input);
+    }
+  }
+
+  searchIt(input: any) {
+    this.services.getAllCategories().subscribe((data: AllMealsModel[]) => {
+      this.allCategories = data.filter((el) => {
+        return el.strCategory == input.value;
+      });
+    });
+  }
+  getBackToMeals() {
+    this.statement = false;
+    this.filterArray();
+  }
+  filterArray() {
     this.services.getAllCategories().subscribe((data: AllMealsModel[]) => {
       this.allCategories = data.sort((a, b) => {
         let fa = a.strCategory,
@@ -36,19 +71,6 @@ export class AllMealsComponent implements OnInit {
         }
         return 0;
       });
-    });
-  }
-
-  pageChanged(event: any) {
-    this.paginationObj.currentPage = event;
-  }
-
-  goBackToMenu() {
-    this.router.navigate(['menu']);
-  }
-  seeDetails(id: number) {
-    this.router.navigate([id], {
-      relativeTo: this.route,
     });
   }
 }

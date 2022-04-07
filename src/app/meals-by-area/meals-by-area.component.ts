@@ -14,6 +14,7 @@ export class MealsByAreaComponent implements OnInit {
   paginationObj2: any;
   details: DetailAboutModel[] = [];
   id!: number;
+  statement: boolean = false;
 
   constructor(
     private service: MealsByAreaService,
@@ -29,9 +30,7 @@ export class MealsByAreaComponent implements OnInit {
   }
   area: string = this.routes.snapshot.params['area'];
   ngOnInit(): void {
-    this.service.getMealsByArea(this.area).subscribe((data: MealList[]) => {
-      this.mealsArea = data;
-    });
+    this.getMeals();
     this.seeDetails;
   }
   seeDetails(id: string) {
@@ -42,5 +41,29 @@ export class MealsByAreaComponent implements OnInit {
 
   pageChanged(event: any) {
     this.paginationObj2.currentPage = event;
+  }
+  getValue(value: string) {
+    if (this.mealsArea.length == 0) {
+      this.statement = true;
+    }
+    if (value != '') {
+      this.searchIt(value);
+    }
+  }
+  getMeals() {
+    this.service.getMealsByArea(this.area).subscribe((data: MealList[]) => {
+      this.mealsArea = data;
+    });
+  }
+  searchIt(value: string) {
+    this.service.getMealsByArea(this.area).subscribe((data: MealList[]) => {
+      this.mealsArea = data.filter((el) => {
+        return el.strMeal == value;
+      });
+    });
+  }
+  getBackToMeals() {
+    this.statement = false;
+    this.getMeals();
   }
 }
