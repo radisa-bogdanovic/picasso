@@ -24,7 +24,7 @@ export class DetailAllMealsComponent implements OnInit {
       strCategoryDescription: '',
     };
     this.routes.params.subscribe((params: Params) => {
-      this.id = +params['id'];
+      this.id = params['id'];
       this.service.getAllCategories().subscribe((data: AllMealsModel[]) => {
         this.details = data.sort((a, b) => {
           let fa = a.strCategory,

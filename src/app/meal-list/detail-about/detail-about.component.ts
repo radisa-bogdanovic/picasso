@@ -19,9 +19,9 @@ export class DetailAboutComponent implements OnInit {
     this.details = [];
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
-    });
-    this.service.getDetails(this.id).subscribe((data: DetailAboutModel[]) => {
-      this.details = data;
+      this.service.getDetails(this.id).subscribe((data: DetailAboutModel[]) => {
+        this.details = data;
+      });
     });
   }
 }
