@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AllMealsService } from './all-meals.service';
 import { AllMealsModel } from '../Models/all-meals.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
+
 @Component({
   selector: 'app-all-meals',
   templateUrl: './all-meals.component.html',
@@ -9,12 +11,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AllMealsComponent implements OnInit {
   allCategories: AllMealsModel[] = [];
+  allCategoriesEdit: AllMealsModel[] = [];
   paginationObj: any;
   statement: boolean = false;
+  allMealListSearchForm = this.fb.group({
+    input: [''],
+  });
   constructor(
     private services: AllMealsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {
     this.paginationObj = {
       id: 'basicPaginate',
@@ -26,6 +33,9 @@ export class AllMealsComponent implements OnInit {
 
   ngOnInit(): void {
     this.filterArray();
+    this.allMealListSearchForm.valueChanges.subscribe((el) => {
+      return this.searchIt(this.allMealListSearchForm.value.input);
+    });
   }
   goBackToMenu() {
     this.router.navigate(['menu']);
@@ -38,39 +48,18 @@ export class AllMealsComponent implements OnInit {
   pageChanged(event: any) {
     this.paginationObj.currentPage = event;
   }
-  getValue(input: any) {
-    if (this.allCategories.length == 0) {
-      this.statement = true;
-    }
-    if (input.value != '') {
-      this.searchIt(input);
-    }
-  }
 
-  searchIt(input: any) {
-    this.services.getAllCategories().subscribe((data: AllMealsModel[]) => {
-      this.allCategories = data.filter((el) => {
-        return el.strCategory == input.value;
-      });
+  searchIt(value: string) {
+    this.allCategories = this.allCategoriesEdit.filter((el) => {
+      let strMealUnder = el.strCategory.toLowerCase();
+      let valueUnder = value.toLowerCase();
+      return strMealUnder.includes(valueUnder);
     });
-  }
-  getBackToMeals() {
-    this.statement = false;
-    this.filterArray();
   }
   filterArray() {
     this.services.getAllCategories().subscribe((data: AllMealsModel[]) => {
-      this.allCategories = data.sort((a, b) => {
-        let fa = a.strCategory,
-          fb = b.strCategory;
-        if (fa < fb) {
-          return -1;
-        }
-        if (fa > fb) {
-          return 1;
-        }
-        return 0;
-      });
+      this.allCategoriesEdit = data;
+      this.allCategories = data;
     });
   }
 }

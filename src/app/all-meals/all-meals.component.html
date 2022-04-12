@@ -1,19 +1,12 @@
 <header class="nav-header">
   <button class="button" (click)="goBackToMenu()">Go back to Menu</button>
-  <h3>All Categories</h3>
-  <input #inputVal type="text" />
-  <button class="search-button" (click)="getValue(inputVal)">Search</button>
+  <form [formGroup]="allMealListSearchForm">
+    <input formControlName="input" type="text" />
+  </form>
 </header>
 <div class="container">
   <div class="wrapper wrapper-left">
     <table>
-      <div class="statementDiv" *ngIf="statement">
-        <h3>
-          Sorry, no search result for {{ inputVal.value }}, please go back to
-          meals
-        </h3>
-        <button (click)="getBackToMeals()">Go Back</button>
-      </div>
       <tr>
         <th>No.</th>
         <th>Meal name:</th>
@@ -22,7 +15,7 @@
       </tr>
       <tr
         *ngFor="let meal of allCategories | paginate: paginationObj"
-        (click)="seeDetails(allCategories.indexOf(meal))"
+        (click)="seeDetails(+meal.idCategory)"
       >
         <td>{{ allCategories.indexOf(meal) + 1 }}</td>
         <td>

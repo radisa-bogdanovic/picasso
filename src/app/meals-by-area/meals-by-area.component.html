@@ -1,9 +1,8 @@
 <header class="nav-header">
   <button class="button" routerLink="/menu">Go back to Menu</button>
-  <input #inputVal type="text" />
-  <button class="search-button" (click)="getValue(inputVal.value)">
-    Search
-  </button>
+  <form [formGroup]="mealsAreaSearchForm">
+    <input #inputVal formControlName="input" type="text" />
+  </form>
   <h3>{{ area }}</h3>
 </header>
 

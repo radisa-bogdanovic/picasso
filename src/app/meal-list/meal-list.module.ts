@@ -5,6 +5,7 @@ import { MealListRouter } from './meal-list.routing';
 import { CommonModule } from '@angular/common';
 import { DetailAboutComponent } from './detail-about/detail-about.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
     MealListRouter,
     CommonModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   declarations: [MealListComponent, DetailAboutComponent],
   bootstrap: [MealListComponent, DetailAboutComponent],

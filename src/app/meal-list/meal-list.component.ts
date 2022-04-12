@@ -3,6 +3,7 @@ import { MealListService } from './meal-list.service';
 import { MealList } from '../Models/meals-list.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetailAboutModel } from '../Models/detail-about.model';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-meal-list',
@@ -11,13 +12,19 @@ import { DetailAboutModel } from '../Models/detail-about.model';
 })
 export class MealListComponent implements OnInit {
   meals: MealList[] = [];
+  mealsForDisplay: MealList[] = [];
   paginationObj: any;
   details: DetailAboutModel[] = [];
   statement: boolean = false;
+
+  mealListSearchForm = this.fb.group({
+    input: [''],
+  });
   constructor(
     private service: MealListService,
     private routes: ActivatedRoute,
-    private route: Router
+    private route: Router,
+    private fb: FormBuilder
   ) {
     this.paginationObj = {
       id: 'basicPaginate',
@@ -31,6 +38,10 @@ export class MealListComponent implements OnInit {
   ngOnInit(): void {
     this.service.getMeals(this.category).subscribe((data: MealList[]) => {
       this.meals = data;
+      this.mealsForDisplay = data;
+    });
+    this.mealListSearchForm.valueChanges.subscribe((el) => {
+      return this.searchIt(this.mealListSearchForm.value.input);
     });
   }
   seeDetails(id: string) {
@@ -41,28 +52,13 @@ export class MealListComponent implements OnInit {
   pageChanged(event: any) {
     this.paginationObj.currentPage = event;
   }
-  getValue(input: any) {
-    if (this.meals.length == 0) {
-      this.statement = true;
-    }
-    if (input.value != '') {
-      this.searchIt(input);
-    }
-  }
-  getMeals() {
-    this.service.getMeals(this.category).subscribe((data: MealList[]) => {
-      this.meals = data;
+
+  searchIt(value: string) {
+    this.meals = this.mealsForDisplay.filter((el) => {
+      let strMealUnder = el.strMeal.toLowerCase();
+      let valueUnder = value.toLowerCase();
+      return strMealUnder.includes(valueUnder);
     });
-  }
-  searchIt(input: any) {
-    this.service.getMeals(this.category).subscribe((data: MealList[]) => {
-      this.meals = data.filter((el) => {
-        return el.strMeal == input.value;
-      });
-    });
-  }
-  getBackToMeals() {
-    this.statement = false;
-    this.getMeals();
+    // });
   }
 }
